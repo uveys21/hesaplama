@@ -1,4 +1,4 @@
-package com.example.hesaplayici
+package com.sayisal.hesaplayici
 
 import org.junit.Test
 
