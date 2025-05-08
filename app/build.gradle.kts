@@ -6,11 +6,11 @@ plugins {
 
 
 android {
-    namespace = "com.example.hesaplayici"
+    namespace = "com.sayisal.hesaplayici"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.hesaplayici"
+        applicationId = "com.sayisal.hesaplayici"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
