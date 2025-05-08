@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.Preference
@@ -45,12 +46,19 @@ class SettingsActivity : AppCompatActivity() {
             }
 
             // Geri bildirim öğesi (EKLEME)
-            findPreference("feedback")?.setOnPreferenceClickListener {
-                val appPackageName = "com.sayisal.hesaplayici"
+            findPreference<Preference>("feedback")?.setOnPreferenceClickListener {
+                val appPackageName = requireContext().packageName
                 try {
+                    // Önce Play Store uygulamasını dene
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
                 } catch (e: ActivityNotFoundException) {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
+                    try {
+                        // Play Store yoksa web tarayıcıyla aç
+                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
+                    } catch (e: Exception) {
+                        // Hiçbiri çalışmazsa hata mesajı göster
+                        Toast.makeText(requireContext(), "Play Store açılamadı", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 true
             }
